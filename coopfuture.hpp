@@ -63,6 +63,20 @@ typedef struct FContextCons{
 }FContextCons;
 
 
+/** @brief The exception to throw if Future::setResult or Future::setError is
+ *         called twice on the same Future.
+ */
+struct FutureAlreadyFulfilled {
+	/** The interface required by std::exception for textual representation
+	 *  of the nature of the error.
+	 *
+	 *  @returns A string explaining that the Future was already resolved.
+	 */
+	const char* what() const noexcept {
+		return "Result/Error already set. Future already fulfilled.\n";
+	}
+};
+
 /** @brief A class to encapsulate IO loops and callbacks.
  *
  *  The class scheduler is used to create handles, which encapsulate the waiting
@@ -126,7 +140,7 @@ public:
 	 *  @param cons The context list to resume. Each member should have been
 	 *         passed to Schedule::waitUntilReady.
 	 */
-	void notifyReady(FContextCons* cons);
+	void notifyReady(FContextCons* cons) noexcept;
 	
 	/** @brief Spawn a new asynchronous method.
 	 *  @param call The function which should take no arguments but which can
@@ -139,7 +153,7 @@ public:
 	          typename R = typename Traits::resultType >
 	typename std::enable_if<!std::is_void<R>::value,
 	                         std::unique_ptr<Future<R, E>>
-	  >::type spawn(Func call);
+	  >::type spawn(Func call) noexcept;
 	
 	/** @brief Spawn a new asynchronous method with no return value.
 	 *  @param call The function which should take no arguments and does not
@@ -152,19 +166,19 @@ public:
 	          typename R = typename Traits::resultType >
 	typename std::enable_if<std::is_void<R>::value,
 	                        std::unique_ptr<Future<void, E>>
-	  >::type spawn(Func call);
+	  >::type spawn(Func call) noexcept;
 
 private:
 	/** @brief Inner loop for context resolution.
 	*/
-	void loop();
+	void loop() noexcept;
 	
 	/** @brief This method is used as a context switch trampoline to enter the
 	 *         the resolution loop.
 	 *  @param arg The argument provided by jump_fcontext, which should contain
 	 *             the *this* pointer.
 	 */
-	static void loopEntry(intptr_t arg) {
+	static void loopEntry(intptr_t arg) noexcept {
 		reinterpret_cast<Scheduler*>(arg)->loop();
 	}
 	
@@ -192,7 +206,7 @@ private:
  *  *boost::context::fcontext_t* contained therein to the queue of completed
  *  contexts for processing by the inner loop.
  */
-void Scheduler::notifyReady(FContextCons* cons) {
+void Scheduler::notifyReady(FContextCons* cons) noexcept {
 	while (cons != nullptr) {
 		ready.push_back(cons->context);
 		cons = cons->nextPointer;
@@ -226,18 +240,23 @@ void Scheduler::waitUntilReady(boost::context::fcontext_t* context,
  *  completed context is encountered. After each attempt at retreiveal, an
  *  iteration of the supplied fulfilment function is applied.
  */
-void Scheduler::loop() {
+void Scheduler::loop() noexcept {
 	boost::context::fcontext_t junkContext;
 	boost::context::fcontext_t exitContext;
 	
-	while (ready.size() == 0)
-		if (tasks.size() > 0) {
-			auto task = tasks.front();
-			tasks.pop_front();
-			task();
-		} else
-			innerCallback();
-	
+	try {
+		while (ready.size() == 0)
+			if (tasks.size() > 0) {
+				auto task = tasks.front();
+				tasks.pop_front();
+				task();
+			} else
+				innerCallback();
+	} catch (FutureAlreadyFulfilled) {
+		std::cerr << "A Future was fulfilled a second time within a "
+		             "Scheduler loop. This is non-recoverable.\n";
+		std::terminate();
+	}
 	exitContext = ready.front();
 	ready.pop_front();
 	boost::context::jump_fcontext(&junkContext, exitContext, 0);
@@ -252,13 +271,17 @@ template <typename E,
           typename Traits,
           typename R>
 typename std::enable_if<!std::is_void<R>::value, std::unique_ptr<Future<R, E>>
-  >::type Scheduler::spawn(Func call) {
+  >::type Scheduler::spawn(Func call) noexcept {
 	auto fut = new Future<R, E>(*this);
 	tasks.push_back([=] {
 		try {
 			fut->setResult(call());
 		} catch (E e) {
 			fut->setError(e);
+		} catch (FutureAlreadyFulfilled faf) {
+			throw faf;
+		} catch (...) {
+			fut->setUnexpected();
 		}
 	});
 	return std::unique_ptr<Future<R, E>>(fut);
@@ -273,7 +296,7 @@ template <typename E,
           typename Traits,
           typename R>
 typename std::enable_if<std::is_void<R>::value,std::unique_ptr<Future<void, E>>
-  >::type Scheduler::spawn(Func call) {
+  >::type Scheduler::spawn(Func call) noexcept {
 	auto fut = new Future<void, E>(*this);
 	tasks.push_back([=] {
 		try {
@@ -281,27 +304,16 @@ typename std::enable_if<std::is_void<R>::value,std::unique_ptr<Future<void, E>>
 			fut->setResult();
 		} catch (E e) {
 			fut->setError(e);
+		} catch (FutureAlreadyFulfilled faf) {
+			throw faf;
+		} catch (...) {
+			fut->setUnexpected();
 		}
 	});
 	return std::unique_ptr<Future<void, E>>(fut);
 }
 
-/** @brief The exception to throw if Future::setResult or Future::setError is
- *         called twice on the same Future.
- */
-struct FutureAlreadyFulfilled : std::exception {
-	/** The interface required by std::exception for textual representation
-	 *  of the nature of the error.
-	 *
-	 *  @returns A string explaining that the Future was already resolved.
-	 */
-	const char* what() const noexcept {
-		return "Result/Error already set. Future already fulfilled.\n";
-	}
-};
-
-
-/** @brief A class to encapsulate the promise of a future result.
+/** @brief Base class for the specialization and general Future objects.
  *
  *  The Future class is used to specify that a result will be forthcoming at
  *  some point in the future. It is therefore a building block for asynchronous
@@ -313,57 +325,37 @@ struct FutureAlreadyFulfilled : std::exception {
  *  This class is NOT thread-safe and is intended for cooperative multi-tasking.
  */
 template <typename ValueType, typename ErrorType>
-class Future {
+class FutureBase {
 public:
 	/** @brief A Future is constructed by providing a scheduler on which to
 	 *         resolve the value, if it is not provided before it is needed.
 	 *  @param sched A reference to an initialized Scheduler.
 	 */
-	Future(Scheduler& sched) :
+	FutureBase(Scheduler& sched) :
 		scheduler(sched), state(State::UNRESOLVED) {};
-	
-	/** @brief Fulfills a succesful Future with a resulting value.
-	 *  @param newResult The value to provide to waiting code.
-	 */
-	void setResult(ValueType newResult);
 	
 	/** @brief Fulfills an unsuccesful Future with the exception to throw.
 	 *  @param newError the exception to throw on waiting code.
 	 */
-	void setError(ErrorType);
+	void setError(ErrorType) throw (FutureAlreadyFulfilled);
 	
-	/** @brief   The public interface to retrieve the value is to cast the
-	 *           Future into the underlying type.
-	 *  @returns The underlying value or throws the exception.
+	/** @brief Future was fulfilled with an exception outside of its scope.
 	 */
-	inline operator ValueType() { return await(); }
+	void setUnexpected() throw (FutureAlreadyFulfilled);
 	
-	/** @brief If the outcome of the Future is set then destroy the result or
-	 *         the exception as appropriate.
-	 */
-	~Future() {
-		switch(state) {
-		case State::SUCCESS:
-			contents.result.~ValueType();
-			break;
-		case State::FAILURE:
-			contents.error.~ErrorType();
-			break;
-		}
-	};
+protected:
+	/* @brief Used by various submethods to indicated the Future is fulfilled.
+	*/
+	void complete() throw (FutureAlreadyFulfilled);
 	
-	/** @brief Returns the underyling result/exception, blocking if necessary.
-	 */
-	ValueType await();
-
-private:
 	/** @enum State 
 	 *  A strongly typed enum class representing the state of a Future.
-	 */  
+	 */
 	enum class State {
 		UNRESOLVED, ///< Starting state for a Future, no value has yet been set.
 		SUCCESS,    ///< Future has a valid return value for retrieval.
-		FAILURE     ///< Future will raise an exception on retrieveal.
+		FAILURE,    ///< Future will raise an exception on retrieval.
+		UNEXPECTED  ///< Future caught an unexpected error.
 	};
 	
 	/// The scheduler to invoke if blocking is necessary.
@@ -393,12 +385,100 @@ private:
 	} contents; ///< Singleton instantiation of Contents.
 };
 
+/** Store the reason for failure in the Future. If there is a context
+ *  list blocking on this Future then release those contexts for the scheduler
+ *  to process.
+ */
+template <typename ValueType, typename ErrorType>
+void FutureBase<ValueType, ErrorType>::setError(ErrorType newError)
+  throw (FutureAlreadyFulfilled) {
+	complete();
+	state = State::FAILURE;
+	contents.error = newError;
+}
+
+/** Store the unexpected failure in the Future. If there is a context
+ *  list blocking on this Future then release those contexts for the scheduler
+ *  to process.
+ */
+template <typename ValueType, typename ErrorType>
+void FutureBase<ValueType, ErrorType>::setUnexpected()
+  throw (FutureAlreadyFulfilled) {
+	complete();
+	state = State::UNEXPECTED;
+}
+
+/** Check whether the Future was already fulfilled and release any waiting
+ *  contexts.
+ */
+template <typename ValueType, typename ErrorType>
+void FutureBase<ValueType, ErrorType>::complete() throw (FutureAlreadyFulfilled) {
+	if (state != State::UNRESOLVED)
+		throw new FutureAlreadyFulfilled;
+	
+	if (contents.cons != nullptr) 
+		scheduler.notifyReady(contents.cons);
+}
+
+/** @brief A class to encapsulate the promise of a future result.
+ *
+ *  This sub-class of FutureBase handles all those cases where ValueType is
+ *  not void.
+ */
+template <typename ValueType, typename ErrorType>
+class Future : public FutureBase<ValueType, ErrorType> {
+public:
+	using FutureBase<ValueType, ErrorType>::FutureBase;
+	
+	/** @brief Fulfills a succesful Future with a resulting value.
+	 *  @param newResult The value to provide to waiting code.
+	 */
+	void setResult(ValueType newResult) throw (FutureAlreadyFulfilled);
+	
+	/** @brief   The public interface to retrieve the value is to cast the
+	 *           Future into the underlying type.
+	 *  @returns The underlying value or throws the exception.
+	 */
+	inline operator ValueType() throw(ErrorType) { return await(); }
+	
+	/** @brief Class destructor
+	 */
+	~Future();
+	
+	/** @brief Returns the underyling result/exception, blocking if necessary.
+	 */
+	ValueType await() throw(ErrorType);
+
+protected:
+	typedef typename FutureBase<ValueType, ErrorType>::State State;
+	using FutureBase<ValueType, ErrorType>::state;
+	using FutureBase<ValueType, ErrorType>::contents;
+	using FutureBase<ValueType, ErrorType>::scheduler;
+	using FutureBase<ValueType, ErrorType>::complete;
+};
+
+/*  If the outcome of the Future is set then destroy the result or
+ *  the exception as appropriate.
+ */
+template <typename ValueType, typename ErrorType>
+Future<ValueType, ErrorType>::~Future() {
+	switch(this->state) {
+	case State::SUCCESS:
+		contents.result.~ValueType();
+		break;
+	case State::FAILURE:
+		contents.error.~ErrorType();
+		break;
+	}
+}
+
+
 /** If the Future has completed then throw the error or return the result
  *  as appropriate, otherwise, add a waiting context node to the cons list
  *  and jump to the scheduler (block until Future is resolved).
  */
 template <typename ValueType, typename ErrorType>
-ValueType Future<ValueType, ErrorType>::await() {
+ValueType Future<ValueType, ErrorType>::await() throw(ErrorType) {
 	switch (state) {
 	// Future succeeded - return the fulfilment result
 	case State::SUCCESS:
@@ -407,6 +487,11 @@ ValueType Future<ValueType, ErrorType>::await() {
 	// Failed Future will throw the stored error on sync
 	case State::FAILURE:
 		throw contents.error;
+	
+	// Unexpected Future will call the unexpected handler
+	case State::UNEXPECTED:
+		std::unexpected();
+		//this prior statement does not return.
 	
 	// Unresolved Future must block until the scheduler fulfills it.
 	case State::UNRESOLVED:
@@ -420,116 +505,63 @@ ValueType Future<ValueType, ErrorType>::await() {
 
 /** Store the result of the operation in the Future. If there is a context
  *  list blocking on this Future then release those contexts for the scheduler
- *  to process.
+  *  to process.
  */
 template <typename ValueType, typename ErrorType>
-void Future<ValueType, ErrorType>::setResult(ValueType newResult) {
-	if (state != State::UNRESOLVED)
-		throw new FutureAlreadyFulfilled;
-	
-	if (contents.cons != nullptr) 
-		scheduler.notifyReady(contents.cons);
-	
+void Future<ValueType, ErrorType>::setResult(ValueType newResult)
+  throw (FutureAlreadyFulfilled) {
+	complete();
 	state = State::SUCCESS;
 	contents.result = newResult;
 }
 
-/** Store the reason for failure in the Future. If there is a context
- *  list blocking on this Future then release those contexts for the scheduler
- *  to process.
- */
-template <typename ValueType, typename ErrorType>
-void Future<ValueType, ErrorType>::setError(ErrorType newError) {
-	if (state != State::UNRESOLVED)
-		throw new FutureAlreadyFulfilled;
-	
-	if (contents.cons != nullptr) 
-		scheduler.notifyReady(contents.cons);
-	
-	state = State::FAILURE;
-	contents.error = newError;
-}
 
 /** @brief A class to encapsulate a resultless asynchronous task.
  *
  *  This is a specialization of the Future class. It is used as a form of
  *  barrier, where the Future will not have a result set on it but can throw
  *  an error and can be blocked on.
- *
- *  This class is NOT thread-safe and is intended for cooperative multi-tasking.
  */
 template <typename ErrorType>
-class Future<void, ErrorType> {
+class Future<void, ErrorType> : public FutureBase<void*, ErrorType> {
 public:
-	/** @brief A Future is constructed by providing a scheduler on which to
-	 *         resolve the value, if it is not provided before it is needed.
-	 *  @param sched A reference to an initialized Scheduler.
-	 */
-	Future(Scheduler& sched) :
-		scheduler(sched), state(State::UNRESOLVED) {};
+	using FutureBase<void*, ErrorType>::FutureBase;
 	
 	/** @brief Fulfills a succesful Future.
 	 */
-	void setResult();
+	void setResult() throw (FutureAlreadyFulfilled);
 	
-	/** @brief Fulfills an unsuccesful Future with the exception to throw.
-	 *  @param newError the exception to throw on waiting code.
+	/** @brief Class destructor
 	 */
-	void setError(ErrorType);
-	
-	/** @brief If the outcome of the Future is set then destroy the result or
-	 *         the exception as appropriate.
-	 */
-	~Future() {
-		if (state == State::FAILURE) 
-			contents.error.~ErrorType();
-	}
+	~Future();
 	
 	/** @brief Returns the underyling result/exception, blocking if necessary.
 	 */
-	void await();
+	void await() throw(ErrorType);
 
-private:
-	/** @enum State 
-	 *  A strongly typed enum class representing the state of a Future.
-	 */  
-	enum class State {
-		UNRESOLVED, ///< Starting state for a Future, no value has yet been set.
-		SUCCESS,    ///< Future has a valid return value for retrieval.
-		FAILURE     ///< Future will raise an exception on retrieveal.
-	};
-	
-	/// The scheduler to invoke if blocking is necessary.
-	Scheduler& scheduler;
-	
-	/// The current state, determines which view of the union member is valid.
-	State state;
-	
-	/** @brief The contents of a Future object.
-	 *
-	 *  This can be any ONE of the below values and is hence represented by a
-	 *  union. The union is deliminated by the enum State in the Future class
-	 *  and the destructor of that class is responsible for correct destruction
-	 *  of the union.
-	 */
-	union Contents {
-		/// The context for a waiting Future, valid whilst in State::UNRESOLVED.
-		FContextCons* cons;
-		/// The exception to raise for a failed Future, valid in State::FAILURE.
-		ErrorType error;
-		/// The union starts with a nullptr in the cons list
-		Contents() : cons(nullptr) {};
-		/// Blank destructor: The Future destructor is responsible for clean-up.
-		~Contents() {};
-	} contents; ///< Singleton instantiation of Contents.
+protected:
+	typedef typename FutureBase<void*, ErrorType>::State State;
+	using FutureBase<void*, ErrorType>::state;
+	using FutureBase<void*, ErrorType>::contents;
+	using FutureBase<void*, ErrorType>::scheduler;
+	using FutureBase<void*, ErrorType>::complete;
 };
+
+/** If the outcome of the Future is set then destroy the result or
+ *  the exception as appropriate.
+ */
+template <typename ErrorType>
+Future<void, ErrorType>::~Future() {
+	if (state == State::FAILURE) 
+		contents.error.~ErrorType();
+}
 
 /** If the Future has completed then throw the error or return silently
  *  as appropriate, otherwise, add a waiting context node to the cons list
  *  and jump to the scheduler (block until Future is resolved).
  */
 template <typename ErrorType>
-void Future<void, ErrorType>::await() {
+void Future<void, ErrorType>::await() throw(ErrorType) {
 	switch (state) {
 	// Void Future - no return
 	case State::SUCCESS:
@@ -538,6 +570,11 @@ void Future<void, ErrorType>::await() {
 	// Void Future can still throw an error
 	case State::FAILURE:
 		throw contents.error;
+	
+	// Unexpected Future will call the unexpected handler
+	case State::UNEXPECTED:
+		std::unexpected();
+		//this prior statement does not return.
 	
 	// Unresolved Future must block until the scheduler fulfills it.
 	case State::UNRESOLVED:
@@ -554,30 +591,9 @@ void Future<void, ErrorType>::await() {
  *  to process.
  */
 template <typename ErrorType>
-void Future<void, ErrorType>::setResult() {
-	if (state != State::UNRESOLVED)
-		throw new FutureAlreadyFulfilled;
-	
-	if (contents.cons != nullptr) 
-		scheduler.notifyReady(contents.cons);
-	
+void Future<void, ErrorType>::setResult() throw (FutureAlreadyFulfilled) {
+	complete();
 	state = State::SUCCESS;
-}
-
-/** Store the reason for failure in the Future. If there is a context
- *  list blocking on this Future then release those contexts for the scheduler
- *  to process.
- */
-template <typename ErrorType>
-void Future<void, ErrorType>::setError(ErrorType newError) {
-	if (state != State::UNRESOLVED)
-		throw new FutureAlreadyFulfilled;
-	
-	if (contents.cons != nullptr) 
-		scheduler.notifyReady(contents.cons);
-	
-	state = State::FAILURE;
-	contents.error = newError;
 }
 
 } // End of namespace fut

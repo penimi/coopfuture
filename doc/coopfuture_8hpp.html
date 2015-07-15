@@ -100,29 +100,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html">fut::Future&lt; ValueType, ErrorType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to encapsulate the promise of a future result.  <a href="classfut_1_1_future.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfut_1_1_f_context_cons.html">fut::FContextCons</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure to hold the linked list of waiting contexts.  <a href="structfut_1_1_f_context_cons.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html">fut::Future&lt; ValueType, ErrorType &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to encapsulate the promise of a future result.  <a href="classfut_1_1_future.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfut_1_1_future_already_fulfilled.html">fut::FutureAlreadyFulfilled</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The exception to throw if <a class="el" href="classfut_1_1_future.html#ad3a1baf3496cfcbf85794a3af8b2972a" title="Fulfills a succesful Future with a resulting value. ">Future::setResult</a> or <a class="el" href="classfut_1_1_future_base.html#a8d967f277e96494d208564a9e0d938e0" title="Fulfills an unsuccesful Future with the exception to throw. ">Future::setError</a> is called twice on the same <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a>.  <a href="structfut_1_1_future_already_fulfilled.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html">fut::Scheduler</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to encapsulate IO loops and callbacks.  <a href="classfut_1_1_scheduler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfut_1_1_future_already_fulfilled.html">fut::FutureAlreadyFulfilled</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The exception to throw if <a class="el" href="classfut_1_1_future.html#ad3a1baf3496cfcbf85794a3af8b2972a" title="Fulfills a succesful Future with a resulting value. ">Future::setResult</a> or <a class="el" href="classfut_1_1_future.html#abbc4d6bff7911c86b1b9ba1fa0cdaf19" title="Fulfills an unsuccesful Future with the exception to throw. ">Future::setError</a> is called twice on the same <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a>.  <a href="structfut_1_1_future_already_fulfilled.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_base.html">fut::FutureBase&lt; ValueType, ErrorType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for the specialization and general <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> objects.  <a href="classfut_1_1_future_base.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionfut_1_1_future_base_1_1_contents.html">fut::FutureBase&lt; ValueType, ErrorType &gt;::Contents</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The contents of a <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> object.  <a href="unionfut_1_1_future_base_1_1_contents.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html">fut::Future&lt; ValueType, ErrorType &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to encapsulate the promise of a future result.  <a href="classfut_1_1_future.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionfut_1_1_future_1_1_contents.html">fut::Future&lt; ValueType, ErrorType &gt;::Contents</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The contents of a <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> object.  <a href="unionfut_1_1_future_1_1_contents.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_3_01void_00_01_error_type_01_4.html">fut::Future&lt; void, ErrorType &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to encapsulate a result-less asynchronous task.  <a href="classfut_1_1_future_3_01void_00_01_error_type_01_4.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionfut_1_1_future_3_01void_00_01_error_type_01_4_1_1_contents.html">fut::Future&lt; void, ErrorType &gt;::Contents</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The contents of a <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> object.  <a href="unionfut_1_1_future_3_01void_00_01_error_type_01_4_1_1_contents.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to encapsulate a resultless asynchronous task.  <a href="classfut_1_1_future_3_01void_00_01_error_type_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -138,7 +138,7 @@ Typedefs</h2></td></tr>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 8 2015 01:10:48 for Cooperative Futures by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 15 2015 11:34:34 for Cooperative Futures by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

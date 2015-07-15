@@ -87,10 +87,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-types">Private Types</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pro-types">Protected Types</a> &#124;
 <a href="classfut_1_1_future-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">fut::Future&lt; ValueType, ErrorType &gt; Class Template Reference</div>  </div>
@@ -101,136 +99,81 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="classfut_1_1_future.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="coopfuture_8hpp_source.html">coopfuture.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for fut::Future&lt; ValueType, ErrorType &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classfut_1_1_future.png" usemap="#fut::Future&lt; ValueType, ErrorType &gt;_map" alt=""/>
+  <map id="fut::Future&lt; ValueType, ErrorType &gt;_map" name="fut::Future&lt; ValueType, ErrorType &gt;_map">
+<area href="classfut_1_1_future_base.html" title="Base class for the specialization and general Future objects. " alt="fut::FutureBase&lt; ValueType, ErrorType &gt;" shape="rect" coords="0,0,249,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionfut_1_1_future_1_1_contents.html">Contents</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The contents of a <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> object.  <a href="unionfut_1_1_future_1_1_contents.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5ee5f8ceb123527fbc00bd148b5346b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#a5ee5f8ceb123527fbc00bd148b5346b8">Future</a> (<a class="el" href="classfut_1_1_scheduler.html">Scheduler</a> &amp;sched)</td></tr>
-<tr class="memdesc:a5ee5f8ceb123527fbc00bd148b5346b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> is constructed by providing a scheduler on which to resolve the value, if it is not provided before it is needed.  <a href="#a5ee5f8ceb123527fbc00bd148b5346b8">More...</a><br /></td></tr>
-<tr class="separator:a5ee5f8ceb123527fbc00bd148b5346b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3a1baf3496cfcbf85794a3af8b2972a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#ad3a1baf3496cfcbf85794a3af8b2972a">setResult</a> (ValueType newResult)</td></tr>
+<tr class="memitem:ad3a1baf3496cfcbf85794a3af8b2972a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#ad3a1baf3496cfcbf85794a3af8b2972a">setResult</a> (ValueType newResult)  throw (FutureAlreadyFulfilled)</td></tr>
 <tr class="memdesc:ad3a1baf3496cfcbf85794a3af8b2972a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fulfills a succesful <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> with a resulting value.  <a href="#ad3a1baf3496cfcbf85794a3af8b2972a">More...</a><br /></td></tr>
 <tr class="separator:ad3a1baf3496cfcbf85794a3af8b2972a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbc4d6bff7911c86b1b9ba1fa0cdaf19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#abbc4d6bff7911c86b1b9ba1fa0cdaf19">setError</a> (ErrorType)</td></tr>
-<tr class="memdesc:abbc4d6bff7911c86b1b9ba1fa0cdaf19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fulfills an unsuccesful <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> with the exception to throw.  <a href="#abbc4d6bff7911c86b1b9ba1fa0cdaf19">More...</a><br /></td></tr>
-<tr class="separator:abbc4d6bff7911c86b1b9ba1fa0cdaf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45ae502cba6331d41a788a480752fb37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#a45ae502cba6331d41a788a480752fb37">operator ValueType</a> ()</td></tr>
+<tr class="memitem:a45ae502cba6331d41a788a480752fb37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#a45ae502cba6331d41a788a480752fb37">operator ValueType</a> ()  throw (ErrorType)</td></tr>
 <tr class="memdesc:a45ae502cba6331d41a788a480752fb37"><td class="mdescLeft">&#160;</td><td class="mdescRight">The public interface to retrieve the value is to cast the <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> into the underlying type.  <a href="#a45ae502cba6331d41a788a480752fb37">More...</a><br /></td></tr>
 <tr class="separator:a45ae502cba6331d41a788a480752fb37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a303d3c28f6ed06d0b2575012e7f35796"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a303d3c28f6ed06d0b2575012e7f35796"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#a303d3c28f6ed06d0b2575012e7f35796">~Future</a> ()</td></tr>
-<tr class="memdesc:a303d3c28f6ed06d0b2575012e7f35796"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the outcome of the <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> is set then destroy the result or the exception as appropriate. <br /></td></tr>
+<tr class="memdesc:a303d3c28f6ed06d0b2575012e7f35796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class destructor. <br /></td></tr>
 <tr class="separator:a303d3c28f6ed06d0b2575012e7f35796"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab28615cc2144e2003682e057c6e10a1a"><td class="memItemLeft" align="right" valign="top">ValueType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#ab28615cc2144e2003682e057c6e10a1a">await</a> ()</td></tr>
+<tr class="memitem:ab28615cc2144e2003682e057c6e10a1a"><td class="memItemLeft" align="right" valign="top">ValueType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#ab28615cc2144e2003682e057c6e10a1a">await</a> ()  throw (ErrorType)</td></tr>
 <tr class="memdesc:ab28615cc2144e2003682e057c6e10a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underyling result/exception, blocking if necessary.  <a href="#ab28615cc2144e2003682e057c6e10a1a">More...</a><br /></td></tr>
 <tr class="separator:ab28615cc2144e2003682e057c6e10a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classfut_1_1_future_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classfut_1_1_future_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classfut_1_1_future_base.html">fut::FutureBase&lt; ValueType, ErrorType &gt;</a></td></tr>
+<tr class="memitem:aaff9ad0e2a859a27fd96c50f43bc084b inherit pub_methods_classfut_1_1_future_base"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_base.html#aaff9ad0e2a859a27fd96c50f43bc084b">FutureBase</a> (<a class="el" href="classfut_1_1_scheduler.html">Scheduler</a> &amp;sched)</td></tr>
+<tr class="memdesc:aaff9ad0e2a859a27fd96c50f43bc084b inherit pub_methods_classfut_1_1_future_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> is constructed by providing a scheduler on which to resolve the value, if it is not provided before it is needed.  <a href="#aaff9ad0e2a859a27fd96c50f43bc084b">More...</a><br /></td></tr>
+<tr class="separator:aaff9ad0e2a859a27fd96c50f43bc084b inherit pub_methods_classfut_1_1_future_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d967f277e96494d208564a9e0d938e0 inherit pub_methods_classfut_1_1_future_base"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_base.html#a8d967f277e96494d208564a9e0d938e0">setError</a> (ErrorType)  throw (FutureAlreadyFulfilled)</td></tr>
+<tr class="memdesc:a8d967f277e96494d208564a9e0d938e0 inherit pub_methods_classfut_1_1_future_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fulfills an unsuccesful <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> with the exception to throw.  <a href="#a8d967f277e96494d208564a9e0d938e0">More...</a><br /></td></tr>
+<tr class="separator:a8d967f277e96494d208564a9e0d938e0 inherit pub_methods_classfut_1_1_future_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f0759a43dbdc9012b9c8c1195b16476 inherit pub_methods_classfut_1_1_future_base"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_base.html#a9f0759a43dbdc9012b9c8c1195b16476">setUnexpected</a> ()  throw (FutureAlreadyFulfilled)</td></tr>
+<tr class="memdesc:a9f0759a43dbdc9012b9c8c1195b16476 inherit pub_methods_classfut_1_1_future_base"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> was fulfilled with an exception outside of its scope.  <a href="#a9f0759a43dbdc9012b9c8c1195b16476">More...</a><br /></td></tr>
+<tr class="separator:a9f0759a43dbdc9012b9c8c1195b16476 inherit pub_methods_classfut_1_1_future_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
-Private Types</h2></td></tr>
-<tr class="memitem:a672801d03d73884f6bdd5b7e973d2e46"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#a672801d03d73884f6bdd5b7e973d2e46">State</a> { <a class="el" href="classfut_1_1_future.html#a672801d03d73884f6bdd5b7e973d2e46a1bc1135786a78aab2926ed56e5f5801c">State::UNRESOLVED</a>, 
-<a class="el" href="classfut_1_1_future.html#a672801d03d73884f6bdd5b7e973d2e46ad0749aaba8b833466dfcbb0428e4f89c">State::SUCCESS</a>, 
-<a class="el" href="classfut_1_1_future.html#a672801d03d73884f6bdd5b7e973d2e46a36fc6065a3e970bc3e6b2e59da52bf2a">State::FAILURE</a>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
+Protected Types</h2></td></tr>
+<tr class="memitem:a7d690d1404f763f4a9a779a8853e6aef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d690d1404f763f4a9a779a8853e6aef"></a>
+typedef <a class="el" href="classfut_1_1_future_base.html">FutureBase</a>&lt; ValueType, ErrorType &gt;::<a class="el" href="classfut_1_1_future_base.html#a8262aae0a0559465739017b813581b56">State</a>&#160;</td><td class="memItemRight" valign="bottom"><b>State</b></td></tr>
+<tr class="separator:a7d690d1404f763f4a9a779a8853e6aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_types_classfut_1_1_future_base"><td colspan="2" onclick="javascript:toggleInherit('pro_types_classfut_1_1_future_base')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="classfut_1_1_future_base.html">fut::FutureBase&lt; ValueType, ErrorType &gt;</a></td></tr>
+<tr class="memitem:a8262aae0a0559465739017b813581b56 inherit pro_types_classfut_1_1_future_base"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_base.html#a8262aae0a0559465739017b813581b56">State</a> { <a class="el" href="classfut_1_1_future_base.html#a8262aae0a0559465739017b813581b56a1bc1135786a78aab2926ed56e5f5801c">State::UNRESOLVED</a>, 
+<a class="el" href="classfut_1_1_future_base.html#a8262aae0a0559465739017b813581b56ad0749aaba8b833466dfcbb0428e4f89c">State::SUCCESS</a>, 
+<a class="el" href="classfut_1_1_future_base.html#a8262aae0a0559465739017b813581b56a36fc6065a3e970bc3e6b2e59da52bf2a">State::FAILURE</a>, 
+<a class="el" href="classfut_1_1_future_base.html#a8262aae0a0559465739017b813581b56a79c6a788549c6275055c935df474f0e7">State::UNEXPECTED</a>
  }</td></tr>
-<tr class="separator:a672801d03d73884f6bdd5b7e973d2e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a8262aae0a0559465739017b813581b56 inherit pro_types_classfut_1_1_future_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a11c7b63b76f78146ef31c0320fbda9ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11c7b63b76f78146ef31c0320fbda9ef"></a>
-<a class="el" href="classfut_1_1_scheduler.html">Scheduler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#a11c7b63b76f78146ef31c0320fbda9ef">scheduler</a></td></tr>
-<tr class="memdesc:a11c7b63b76f78146ef31c0320fbda9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">The scheduler to invoke if blocking is necessary. <br /></td></tr>
-<tr class="separator:a11c7b63b76f78146ef31c0320fbda9ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a146d07f6e9e9ad67cae182ebf96933d9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a146d07f6e9e9ad67cae182ebf96933d9"></a>
-<a class="el" href="classfut_1_1_future.html#a672801d03d73884f6bdd5b7e973d2e46">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#a146d07f6e9e9ad67cae182ebf96933d9">state</a></td></tr>
-<tr class="memdesc:a146d07f6e9e9ad67cae182ebf96933d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current state, determines which view of the union member is valid. <br /></td></tr>
-<tr class="separator:a146d07f6e9e9ad67cae182ebf96933d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a438ebffa68f8b164fca7031db7154314"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a438ebffa68f8b164fca7031db7154314"></a>
-union <a class="el" href="unionfut_1_1_future_1_1_contents.html">fut::Future::Contents</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future.html#a438ebffa68f8b164fca7031db7154314">contents</a></td></tr>
-<tr class="memdesc:a438ebffa68f8b164fca7031db7154314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singleton instantiation of <a class="el" href="unionfut_1_1_future_1_1_contents.html" title="The contents of a Future object. ">Contents</a>. <br /></td></tr>
-<tr class="separator:a438ebffa68f8b164fca7031db7154314"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classfut_1_1_future_base"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classfut_1_1_future_base')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classfut_1_1_future_base.html">fut::FutureBase&lt; ValueType, ErrorType &gt;</a></td></tr>
+<tr class="memitem:adbb15a1a1ae3f49ce5b57b182978b6f8 inherit pro_methods_classfut_1_1_future_base"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_base.html#adbb15a1a1ae3f49ce5b57b182978b6f8">complete</a> ()  throw (FutureAlreadyFulfilled)</td></tr>
+<tr class="separator:adbb15a1a1ae3f49ce5b57b182978b6f8 inherit pro_methods_classfut_1_1_future_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classfut_1_1_future_base"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classfut_1_1_future_base')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classfut_1_1_future_base.html">fut::FutureBase&lt; ValueType, ErrorType &gt;</a></td></tr>
+<tr class="memitem:aa7bfacfbab6a5d998bb4b383186b3ba6 inherit pro_attribs_classfut_1_1_future_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7bfacfbab6a5d998bb4b383186b3ba6"></a>
+<a class="el" href="classfut_1_1_scheduler.html">Scheduler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_base.html#aa7bfacfbab6a5d998bb4b383186b3ba6">scheduler</a></td></tr>
+<tr class="memdesc:aa7bfacfbab6a5d998bb4b383186b3ba6 inherit pro_attribs_classfut_1_1_future_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">The scheduler to invoke if blocking is necessary. <br /></td></tr>
+<tr class="separator:aa7bfacfbab6a5d998bb4b383186b3ba6 inherit pro_attribs_classfut_1_1_future_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80e26d965669c2d4298dbf6269826de5 inherit pro_attribs_classfut_1_1_future_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80e26d965669c2d4298dbf6269826de5"></a>
+<a class="el" href="classfut_1_1_future_base.html#a8262aae0a0559465739017b813581b56">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_base.html#a80e26d965669c2d4298dbf6269826de5">state</a></td></tr>
+<tr class="memdesc:a80e26d965669c2d4298dbf6269826de5 inherit pro_attribs_classfut_1_1_future_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current state, determines which view of the union member is valid. <br /></td></tr>
+<tr class="separator:a80e26d965669c2d4298dbf6269826de5 inherit pro_attribs_classfut_1_1_future_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd201868c7ab0ed9f8ef4a19ec51e1ce inherit pro_attribs_classfut_1_1_future_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd201868c7ab0ed9f8ef4a19ec51e1ce"></a>
+union <a class="el" href="unionfut_1_1_future_base_1_1_contents.html">fut::FutureBase::Contents</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_future_base.html#afd201868c7ab0ed9f8ef4a19ec51e1ce">contents</a></td></tr>
+<tr class="memdesc:afd201868c7ab0ed9f8ef4a19ec51e1ce inherit pro_attribs_classfut_1_1_future_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singleton instantiation of <a class="el" href="unionfut_1_1_future_base_1_1_contents.html" title="The contents of a Future object. ">Contents</a>. <br /></td></tr>
+<tr class="separator:afd201868c7ab0ed9f8ef4a19ec51e1ce inherit pro_attribs_classfut_1_1_future_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename ValueType, typename ErrorType&gt;<br />
 class fut::Future&lt; ValueType, ErrorType &gt;</h3>
 
 <p>A class to encapsulate the promise of a future result. </p>
-<p>The <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> class is used to specify that a result will be forthcoming at some point in the future. It is therefore a building block for asynchronous programing. A function can return a <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> rather than an actual result and then set up a mechanism whereby the result is provided. When a <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> is cast into its underlying value, if the value has not currently been provided then the scheduler is invoked in an attempt to fulfill the value.</p>
-<p>This class is NOT thread-safe and is intended for cooperative multi-tasking. </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a class="anchor" id="a672801d03d73884f6bdd5b7e973d2e46"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ValueType, typename ErrorType&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="classfut_1_1_future.html#a672801d03d73884f6bdd5b7e973d2e46">fut::Future::State</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>A strongly typed enum class representing the state of a <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a>. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a672801d03d73884f6bdd5b7e973d2e46a1bc1135786a78aab2926ed56e5f5801c"></a>UNRESOLVED&#160;</td><td class="fielddoc">
-<p>Starting state for a <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a>, no value has yet been set. </p>
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a672801d03d73884f6bdd5b7e973d2e46ad0749aaba8b833466dfcbb0428e4f89c"></a>SUCCESS&#160;</td><td class="fielddoc">
-<p><a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> has a valid return value for retrieval. </p>
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a672801d03d73884f6bdd5b7e973d2e46a36fc6065a3e970bc3e6b2e59da52bf2a"></a>FAILURE&#160;</td><td class="fielddoc">
-<p><a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> will raise an exception on retrieveal. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a5ee5f8ceb123527fbc00bd148b5346b8"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ValueType, typename ErrorType&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classfut_1_1_future.html">fut::Future</a>&lt; ValueType, ErrorType &gt;::<a class="el" href="classfut_1_1_future.html">Future</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classfut_1_1_scheduler.html">Scheduler</a> &amp;&#160;</td>
-          <td class="paramname"><em>sched</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> is constructed by providing a scheduler on which to resolve the value, if it is not provided before it is needed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sched</td><td>A reference to an initialized <a class="el" href="classfut_1_1_scheduler.html" title="A class to encapsulate IO loops and callbacks. ">Scheduler</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+<p>This sub-class of <a class="el" href="classfut_1_1_future_base.html" title="Base class for the specialization and general Future objects. ">FutureBase</a> handles all those cases where ValueType is not void. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ab28615cc2144e2003682e057c6e10a1a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -242,6 +185,12 @@ template&lt;typename ValueType , typename ErrorType &gt; </div>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+        <tr>
+          <td align="right">throw </td><td>(</td><td colspan="2">ErrorType</td>
+        </tr>
+        <tr>
+          <td align="right"></td><td>)</td><td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -266,6 +215,12 @@ template&lt;typename ValueType, typename ErrorType&gt; </div>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
+        <tr>
+          <td align="right">throw </td><td>(</td><td colspan="2">ErrorType</td>
+        </tr>
+        <tr>
+          <td align="right"></td><td>)</td><td></td><td></td>
+        </tr>
       </table>
   </td>
   <td class="mlabels-right">
@@ -276,33 +231,6 @@ template&lt;typename ValueType, typename ErrorType&gt; </div>
 
 <p>The public interface to retrieve the value is to cast the <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> into the underlying type. </p>
 <dl class="section return"><dt>Returns</dt><dd>The underlying value or throws the exception. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="abbc4d6bff7911c86b1b9ba1fa0cdaf19"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename ValueType , typename ErrorType &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classfut_1_1_future.html">fut::Future</a>&lt; ValueType, ErrorType &gt;::setError </td>
-          <td>(</td>
-          <td class="paramtype">ErrorType&#160;</td>
-          <td class="paramname"><em>newError</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fulfills an unsuccesful <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> with the exception to throw. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">newError</td><td>the exception to throw on waiting code.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Store the reason for failure in the <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a>. If there is a context list blocking on this <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> then release those contexts for the scheduler to process. </p>
 
 </div>
 </div>
@@ -318,6 +246,12 @@ template&lt;typename ValueType , typename ErrorType &gt; </div>
           <td class="paramtype">ValueType&#160;</td>
           <td class="paramname"><em>newResult</em></td><td>)</td>
           <td></td>
+        </tr>
+        <tr>
+          <td align="right">throw </td><td>(</td><td colspan="2"><a class="el" href="structfut_1_1_future_already_fulfilled.html">FutureAlreadyFulfilled</a></td>
+        </tr>
+        <tr>
+          <td align="right"></td><td>)</td><td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -339,7 +273,7 @@ template&lt;typename ValueType , typename ErrorType &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 8 2015 01:10:48 for Cooperative Futures by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 15 2015 11:34:34 for Cooperative Futures by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

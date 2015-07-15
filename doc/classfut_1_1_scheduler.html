@@ -111,35 +111,35 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ace4577e5cbfecb2796399e054637cc8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#ace4577e5cbfecb2796399e054637cc8b">waitUntilReady</a> (boost::context::fcontext_t *context, bool preserveFPRegisters=false)</td></tr>
 <tr class="memdesc:ace4577e5cbfecb2796399e054637cc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method runs the inner loop until the context is ready.  <a href="#ace4577e5cbfecb2796399e054637cc8b">More...</a><br /></td></tr>
 <tr class="separator:ace4577e5cbfecb2796399e054637cc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7558508e6d1038f6ebc46e007e876a12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a7558508e6d1038f6ebc46e007e876a12">notifyReady</a> (<a class="el" href="structfut_1_1_f_context_cons.html">FContextCons</a> *cons)</td></tr>
-<tr class="memdesc:a7558508e6d1038f6ebc46e007e876a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method notifies that the waiting context can be resumed.  <a href="#a7558508e6d1038f6ebc46e007e876a12">More...</a><br /></td></tr>
-<tr class="separator:a7558508e6d1038f6ebc46e007e876a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e693ea0c9c31cd0ea098e235296c1ed"><td class="memTemplParams" colspan="2">template&lt;typename E  = std::exception, typename Func , typename Traits  = funcTraits&lt;Func&gt;, typename R  = typename Traits::resultType&gt; </td></tr>
-<tr class="memitem:a7e693ea0c9c31cd0ea098e235296c1ed"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!std::is_void&lt; R &gt;::value, std::unique_ptr&lt; <a class="el" href="classfut_1_1_future.html">Future</a>&lt; R, E &gt; &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a7e693ea0c9c31cd0ea098e235296c1ed">spawn</a> (Func call)</td></tr>
-<tr class="memdesc:a7e693ea0c9c31cd0ea098e235296c1ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spawn a new asynchronous method.  <a href="#a7e693ea0c9c31cd0ea098e235296c1ed">More...</a><br /></td></tr>
-<tr class="separator:a7e693ea0c9c31cd0ea098e235296c1ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa615b4a97ec9768342a9960cc125fce6"><td class="memTemplParams" colspan="2">template&lt;typename E  = std::exception, typename Func , typename Traits  = funcTraits&lt;Func&gt;, typename R  = typename Traits::resultType&gt; </td></tr>
-<tr class="memitem:aa615b4a97ec9768342a9960cc125fce6"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_void&lt; R &gt;::value, std::unique_ptr&lt; <a class="el" href="classfut_1_1_future.html">Future</a>&lt; void, E &gt; &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#aa615b4a97ec9768342a9960cc125fce6">spawn</a> (Func call)</td></tr>
-<tr class="memdesc:aa615b4a97ec9768342a9960cc125fce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spawn a new asynchronous method with no return value.  <a href="#aa615b4a97ec9768342a9960cc125fce6">More...</a><br /></td></tr>
-<tr class="separator:aa615b4a97ec9768342a9960cc125fce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e693ea0c9c31cd0ea098e235296c1ed"><td class="memTemplParams" colspan="2">template&lt;typename E , typename Func , typename Traits , typename R &gt; </td></tr>
-<tr class="memitem:a7e693ea0c9c31cd0ea098e235296c1ed"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!std::is_void&lt; R &gt;::value, std::unique_ptr&lt; <a class="el" href="classfut_1_1_future.html">Future</a>&lt; R, E &gt; &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a7e693ea0c9c31cd0ea098e235296c1ed">spawn</a> (Func call)</td></tr>
-<tr class="separator:a7e693ea0c9c31cd0ea098e235296c1ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd652388d63f7fa3b367150bff0171f5"><td class="memTemplParams" colspan="2">template&lt;typename E , typename Func , typename Traits , typename R &gt; </td></tr>
-<tr class="memitem:abd652388d63f7fa3b367150bff0171f5"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_void&lt; R &gt;::value, std::unique_ptr&lt; <a class="el" href="classfut_1_1_future.html">Future</a>&lt; void, E &gt; &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#abd652388d63f7fa3b367150bff0171f5">spawn</a> (Func call)</td></tr>
-<tr class="separator:abd652388d63f7fa3b367150bff0171f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ce372cb2e0dccbdce788670500f8a97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a2ce372cb2e0dccbdce788670500f8a97">notifyReady</a> (<a class="el" href="structfut_1_1_f_context_cons.html">FContextCons</a> *cons) noexcept</td></tr>
+<tr class="memdesc:a2ce372cb2e0dccbdce788670500f8a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method notifies that the waiting context can be resumed.  <a href="#a2ce372cb2e0dccbdce788670500f8a97">More...</a><br /></td></tr>
+<tr class="separator:a2ce372cb2e0dccbdce788670500f8a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a716f45aa694fdcb17b6c920402009f1b"><td class="memTemplParams" colspan="2">template&lt;typename E  = std::exception, typename Func , typename Traits  = funcTraits&lt;Func&gt;, typename R  = typename Traits::resultType&gt; </td></tr>
+<tr class="memitem:a716f45aa694fdcb17b6c920402009f1b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!std::is_void&lt; R &gt;::value, std::unique_ptr&lt; <a class="el" href="classfut_1_1_future.html">Future</a>&lt; R, E &gt; &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a716f45aa694fdcb17b6c920402009f1b">spawn</a> (Func call) noexcept</td></tr>
+<tr class="memdesc:a716f45aa694fdcb17b6c920402009f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spawn a new asynchronous method.  <a href="#a716f45aa694fdcb17b6c920402009f1b">More...</a><br /></td></tr>
+<tr class="separator:a716f45aa694fdcb17b6c920402009f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70e76dfbf75b2cad7706393b24f93692"><td class="memTemplParams" colspan="2">template&lt;typename E  = std::exception, typename Func , typename Traits  = funcTraits&lt;Func&gt;, typename R  = typename Traits::resultType&gt; </td></tr>
+<tr class="memitem:a70e76dfbf75b2cad7706393b24f93692"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_void&lt; R &gt;::value, std::unique_ptr&lt; <a class="el" href="classfut_1_1_future.html">Future</a>&lt; void, E &gt; &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a70e76dfbf75b2cad7706393b24f93692">spawn</a> (Func call) noexcept</td></tr>
+<tr class="memdesc:a70e76dfbf75b2cad7706393b24f93692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spawn a new asynchronous method with no return value.  <a href="#a70e76dfbf75b2cad7706393b24f93692">More...</a><br /></td></tr>
+<tr class="separator:a70e76dfbf75b2cad7706393b24f93692"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a716f45aa694fdcb17b6c920402009f1b"><td class="memTemplParams" colspan="2">template&lt;typename E , typename Func , typename Traits , typename R &gt; </td></tr>
+<tr class="memitem:a716f45aa694fdcb17b6c920402009f1b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt;!std::is_void&lt; R &gt;::value, std::unique_ptr&lt; <a class="el" href="classfut_1_1_future.html">Future</a>&lt; R, E &gt; &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a716f45aa694fdcb17b6c920402009f1b">spawn</a> (Func call) noexcept</td></tr>
+<tr class="separator:a716f45aa694fdcb17b6c920402009f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af769074fb50410077241753656a2130b"><td class="memTemplParams" colspan="2">template&lt;typename E , typename Func , typename Traits , typename R &gt; </td></tr>
+<tr class="memitem:af769074fb50410077241753656a2130b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_void&lt; R &gt;::value, std::unique_ptr&lt; <a class="el" href="classfut_1_1_future.html">Future</a>&lt; void, E &gt; &gt; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#af769074fb50410077241753656a2130b">spawn</a> (Func call) noexcept</td></tr>
+<tr class="separator:af769074fb50410077241753656a2130b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a82bbe7110eb3c5a78ba3ea54a696ce85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a82bbe7110eb3c5a78ba3ea54a696ce85">loop</a> ()</td></tr>
-<tr class="memdesc:a82bbe7110eb3c5a78ba3ea54a696ce85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inner loop for context resolution.  <a href="#a82bbe7110eb3c5a78ba3ea54a696ce85">More...</a><br /></td></tr>
-<tr class="separator:a82bbe7110eb3c5a78ba3ea54a696ce85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e8f709d4a649ff2905424a877d8069"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#ac4e8f709d4a649ff2905424a877d8069">loop</a> () noexcept</td></tr>
+<tr class="memdesc:ac4e8f709d4a649ff2905424a877d8069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inner loop for context resolution.  <a href="#ac4e8f709d4a649ff2905424a877d8069">More...</a><br /></td></tr>
+<tr class="separator:ac4e8f709d4a649ff2905424a877d8069"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a38aa50ef4ac17994b9b600238c4965ef"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a38aa50ef4ac17994b9b600238c4965ef">loopEntry</a> (intptr_t arg)</td></tr>
-<tr class="memdesc:a38aa50ef4ac17994b9b600238c4965ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used as a context switch trampoline to enter the the resolution loop.  <a href="#a38aa50ef4ac17994b9b600238c4965ef">More...</a><br /></td></tr>
-<tr class="separator:a38aa50ef4ac17994b9b600238c4965ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dbc82112969ce6f4de6fa51ff860ec7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfut_1_1_scheduler.html#a6dbc82112969ce6f4de6fa51ff860ec7">loopEntry</a> (intptr_t arg) noexcept</td></tr>
+<tr class="memdesc:a6dbc82112969ce6f4de6fa51ff860ec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used as a context switch trampoline to enter the the resolution loop.  <a href="#a6dbc82112969ce6f4de6fa51ff860ec7">More...</a><br /></td></tr>
+<tr class="separator:a6dbc82112969ce6f4de6fa51ff860ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -225,7 +225,7 @@ template&lt;typename Allocator  = boost::coroutines::stack_allocator&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a82bbe7110eb3c5a78ba3ea54a696ce85"></a>
+<a class="anchor" id="ac4e8f709d4a649ff2905424a877d8069"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -241,7 +241,7 @@ template&lt;typename Allocator  = boost::coroutines::stack_allocator&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -251,7 +251,7 @@ template&lt;typename Allocator  = boost::coroutines::stack_allocator&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a38aa50ef4ac17994b9b600238c4965ef"></a>
+<a class="anchor" id="a6dbc82112969ce6f4de6fa51ff860ec7"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -268,7 +268,7 @@ template&lt;typename Allocator  = boost::coroutines::stack_allocator&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -283,9 +283,12 @@ template&lt;typename Allocator  = boost::coroutines::stack_allocator&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a7558508e6d1038f6ebc46e007e876a12"></a>
+<a class="anchor" id="a2ce372cb2e0dccbdce788670500f8a97"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void fut::Scheduler::notifyReady </td>
@@ -295,6 +298,11 @@ template&lt;typename Allocator  = boost::coroutines::stack_allocator&gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>This method notifies that the waiting context can be resumed. </p>
@@ -308,11 +316,14 @@ template&lt;typename Allocator  = boost::coroutines::stack_allocator&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a7e693ea0c9c31cd0ea098e235296c1ed"></a>
+<a class="anchor" id="a716f45aa694fdcb17b6c920402009f1b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename E  = std::exception, typename Func , typename Traits  = funcTraits&lt;Func&gt;, typename R  = typename Traits::resultType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::enable_if&lt;!std::is_void&lt;R&gt;::value, std::unique_ptr&lt;<a class="el" href="classfut_1_1_future.html">Future</a>&lt;R, E&gt; &gt; &gt;::type fut::Scheduler::spawn </td>
@@ -322,6 +333,11 @@ template&lt;typename E  = std::exception, typename Func , typename Traits  = fun
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Spawn a new asynchronous method. </p>
@@ -335,11 +351,14 @@ template&lt;typename E  = std::exception, typename Func , typename Traits  = fun
 
 </div>
 </div>
-<a class="anchor" id="aa615b4a97ec9768342a9960cc125fce6"></a>
+<a class="anchor" id="a70e76dfbf75b2cad7706393b24f93692"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename E  = std::exception, typename Func , typename Traits  = funcTraits&lt;Func&gt;, typename R  = typename Traits::resultType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::enable_if&lt;std::is_void&lt;R&gt;::value, std::unique_ptr&lt;<a class="el" href="classfut_1_1_future.html">Future</a>&lt;void, E&gt; &gt; &gt;::type fut::Scheduler::spawn </td>
@@ -349,6 +368,11 @@ template&lt;typename E  = std::exception, typename Func , typename Traits  = fun
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Spawn a new asynchronous method with no return value. </p>
@@ -362,11 +386,14 @@ template&lt;typename E  = std::exception, typename Func , typename Traits  = fun
 
 </div>
 </div>
-<a class="anchor" id="a7e693ea0c9c31cd0ea098e235296c1ed"></a>
+<a class="anchor" id="a716f45aa694fdcb17b6c920402009f1b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename E , typename Func , typename Traits , typename R &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::enable_if&lt;!std::is_void&lt;R&gt;::value, std::unique_ptr&lt;<a class="el" href="classfut_1_1_future.html">Future</a>&lt;R, E&gt; &gt; &gt;::type fut::Scheduler::spawn </td>
@@ -376,16 +403,24 @@ template&lt;typename E , typename Func , typename Traits , typename R &gt; </div
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Creates a new <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> (on the heap) and a lambda expression, wrapping the provided function object. This is then pushed to the scheduler tasks queue for completion during an IO loop run. </p>
 
 </div>
 </div>
-<a class="anchor" id="abd652388d63f7fa3b367150bff0171f5"></a>
+<a class="anchor" id="af769074fb50410077241753656a2130b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename E , typename Func , typename Traits , typename R &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::enable_if&lt;std::is_void&lt;R&gt;::value,std::unique_ptr&lt;<a class="el" href="classfut_1_1_future.html">Future</a>&lt;void, E&gt; &gt; &gt;::type fut::Scheduler::spawn </td>
@@ -395,6 +430,11 @@ template&lt;typename E , typename Func , typename Traits , typename R &gt; </div
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Creates a new void <a class="el" href="classfut_1_1_future.html" title="A class to encapsulate the promise of a future result. ">Future</a> (on the heap) and a lambda expression, wrapping the provided function object. This is then pushed to the scheduler tasks queue for completion during an IO loop run. </p>
 
@@ -442,7 +482,7 @@ template&lt;typename E , typename Func , typename Traits , typename R &gt; </div
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 8 2015 01:10:48 for Cooperative Futures by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jul 15 2015 11:34:34 for Cooperative Futures by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
