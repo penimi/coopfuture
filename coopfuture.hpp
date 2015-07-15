@@ -66,7 +66,7 @@ typedef struct FContextCons{
 /** @brief The exception to throw if Future::setResult or Future::setError is
  *         called twice on the same Future.
  */
-struct FutureAlreadyFulfilled {
+struct FutureAlreadyFulfilled : std::exception{
 	/** The interface required by std::exception for textual representation
 	 *  of the nature of the error.
 	 *
@@ -276,10 +276,10 @@ typename std::enable_if<!std::is_void<R>::value, std::unique_ptr<Future<R, E>>
 	tasks.push_back([=] {
 		try {
 			fut->setResult(call());
-		} catch (E e) {
-			fut->setError(e);
 		} catch (FutureAlreadyFulfilled faf) {
 			throw faf;
+		} catch (E e) {
+			fut->setError(e);
 		} catch (...) {
 			fut->setUnexpected();
 		}
@@ -302,10 +302,10 @@ typename std::enable_if<std::is_void<R>::value,std::unique_ptr<Future<void, E>>
 		try {
 			call();
 			fut->setResult();
-		} catch (E e) {
-			fut->setError(e);
 		} catch (FutureAlreadyFulfilled faf) {
 			throw faf;
+		} catch (E e) {
+			fut->setError(e);
 		} catch (...) {
 			fut->setUnexpected();
 		}
