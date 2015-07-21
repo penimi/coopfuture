@@ -102,7 +102,7 @@ public:
 		stackAllocate(std::bind(&Allocator::allocate, &stackAlloc,
 		                        std::placeholders::_1, std::placeholders::_2)),
 		stackDeallocate(std::bind(&Allocator::deallocate, &stackAlloc,
-		                          std::placeholders::_1)) {};
+		                          std::placeholders::_1)) {}
 	
 #ifdef BOOST_ASIO_IO_SERVICE_HPP
 	/** @brief Constructs the object from a boost::asio::io_service and
@@ -124,7 +124,7 @@ public:
 		stackAllocate(std::bind(&Allocator::allocate, &stackAlloc,
 		                        std::placeholders::_1, std::placeholders::_2)),
 		stackDeallocate(std::bind(&Allocator::deallocate, &stackAlloc,
-		                          std::placeholders::_1)) {};
+		                          std::placeholders::_1)) {}
 #endif
 	
 	
@@ -281,7 +281,7 @@ typename std::enable_if<!std::is_void<R>::value, std::unique_ptr<Future<R, E>>
 		} catch (E e) {
 			fut->setError(e);
 		} catch (...) {
-			fut->setUnexpected();
+			fut->setBadException();
 		}
 	});
 	return std::unique_ptr<Future<R, E>>(fut);
@@ -307,7 +307,7 @@ typename std::enable_if<std::is_void<R>::value,std::unique_ptr<Future<void, E>>
 		} catch (E e) {
 			fut->setError(e);
 		} catch (...) {
-			fut->setUnexpected();
+			fut->setBadException();
 		}
 	});
 	return std::unique_ptr<Future<void, E>>(fut);
@@ -337,16 +337,16 @@ public:
 	/** @brief Fulfills an unsuccesful Future with the exception to throw.
 	 *  @param newError the exception to throw on waiting code.
 	 */
-	void setError(ErrorType) throw (FutureAlreadyFulfilled);
+	void setError(ErrorType);
 	
 	/** @brief Future was fulfilled with an exception outside of its scope.
 	 */
-	void setUnexpected() throw (FutureAlreadyFulfilled);
+	void setBadException();
 	
 protected:
 	/* @brief Used by various submethods to indicated the Future is fulfilled.
 	*/
-	void complete() throw (FutureAlreadyFulfilled);
+	void complete();
 	
 	/** @enum State 
 	 *  A strongly typed enum class representing the state of a Future.
@@ -355,7 +355,7 @@ protected:
 		UNRESOLVED, ///< Starting state for a Future, no value has yet been set.
 		SUCCESS,    ///< Future has a valid return value for retrieval.
 		FAILURE,    ///< Future will raise an exception on retrieval.
-		UNEXPECTED  ///< Future caught an unexpected error.
+		BAD_EXCEPTION  ///< Future caught an unexpected error.
 	};
 	
 	/// The scheduler to invoke if blocking is necessary.
@@ -390,8 +390,7 @@ protected:
  *  to process.
  */
 template <typename ValueType, typename ErrorType>
-void FutureBase<ValueType, ErrorType>::setError(ErrorType newError)
-  throw (FutureAlreadyFulfilled) {
+void FutureBase<ValueType, ErrorType>::setError(ErrorType newError) {
 	complete();
 	state = State::FAILURE;
 	contents.error = newError;
@@ -402,19 +401,18 @@ void FutureBase<ValueType, ErrorType>::setError(ErrorType newError)
  *  to process.
  */
 template <typename ValueType, typename ErrorType>
-void FutureBase<ValueType, ErrorType>::setUnexpected()
-  throw (FutureAlreadyFulfilled) {
+void FutureBase<ValueType, ErrorType>::setBadException() {
 	complete();
-	state = State::UNEXPECTED;
+	state = State::BAD_EXCEPTION;
 }
 
 /** Check whether the Future was already fulfilled and release any waiting
  *  contexts.
  */
 template <typename ValueType, typename ErrorType>
-void FutureBase<ValueType, ErrorType>::complete() throw (FutureAlreadyFulfilled) {
+void FutureBase<ValueType, ErrorType>::complete() {
 	if (state != State::UNRESOLVED)
-		throw new FutureAlreadyFulfilled;
+		throw FutureAlreadyFulfilled();
 	
 	if (contents.cons != nullptr) 
 		scheduler.notifyReady(contents.cons);
@@ -433,13 +431,13 @@ public:
 	/** @brief Fulfills a succesful Future with a resulting value.
 	 *  @param newResult The value to provide to waiting code.
 	 */
-	void setResult(ValueType newResult) throw (FutureAlreadyFulfilled);
+	void setResult(ValueType newResult);
 	
 	/** @brief   The public interface to retrieve the value is to cast the
 	 *           Future into the underlying type.
 	 *  @returns The underlying value or throws the exception.
 	 */
-	inline operator ValueType() throw(ErrorType) { return await(); }
+	inline operator ValueType() { return await(); }
 	
 	/** @brief Class destructor
 	 */
@@ -447,7 +445,7 @@ public:
 	
 	/** @brief Returns the underyling result/exception, blocking if necessary.
 	 */
-	ValueType await() throw(ErrorType);
+	ValueType await();
 
 protected:
 	typedef typename FutureBase<ValueType, ErrorType>::State State;
@@ -478,7 +476,7 @@ Future<ValueType, ErrorType>::~Future() {
  *  and jump to the scheduler (block until Future is resolved).
  */
 template <typename ValueType, typename ErrorType>
-ValueType Future<ValueType, ErrorType>::await() throw(ErrorType) {
+ValueType Future<ValueType, ErrorType>::await() {
 	switch (state) {
 	// Future succeeded - return the fulfilment result
 	case State::SUCCESS:
@@ -488,9 +486,9 @@ ValueType Future<ValueType, ErrorType>::await() throw(ErrorType) {
 	case State::FAILURE:
 		throw contents.error;
 	
-	// Unexpected Future will call the unexpected handler
-	case State::UNEXPECTED:
-		std::unexpected();
+	// BadException Future will call the unexpected handler
+	case State::BAD_EXCEPTION:
+		throw std::bad_exception();
 		//this prior statement does not return.
 	
 	// Unresolved Future must block until the scheduler fulfills it.
@@ -508,8 +506,7 @@ ValueType Future<ValueType, ErrorType>::await() throw(ErrorType) {
   *  to process.
  */
 template <typename ValueType, typename ErrorType>
-void Future<ValueType, ErrorType>::setResult(ValueType newResult)
-  throw (FutureAlreadyFulfilled) {
+void Future<ValueType, ErrorType>::setResult(ValueType newResult) {
 	complete();
 	state = State::SUCCESS;
 	contents.result = newResult;
@@ -529,7 +526,7 @@ public:
 	
 	/** @brief Fulfills a succesful Future.
 	 */
-	void setResult() throw (FutureAlreadyFulfilled);
+	void setResult();
 	
 	/** @brief Class destructor
 	 */
@@ -537,7 +534,7 @@ public:
 	
 	/** @brief Returns the underyling result/exception, blocking if necessary.
 	 */
-	void await() throw(ErrorType);
+	void await();
 
 protected:
 	typedef typename FutureBase<void*, ErrorType>::State State;
@@ -561,7 +558,7 @@ Future<void, ErrorType>::~Future() {
  *  and jump to the scheduler (block until Future is resolved).
  */
 template <typename ErrorType>
-void Future<void, ErrorType>::await() throw(ErrorType) {
+void Future<void, ErrorType>::await() {
 	switch (state) {
 	// Void Future - no return
 	case State::SUCCESS:
@@ -571,10 +568,9 @@ void Future<void, ErrorType>::await() throw(ErrorType) {
 	case State::FAILURE:
 		throw contents.error;
 	
-	// Unexpected Future will call the unexpected handler
-	case State::UNEXPECTED:
-		std::unexpected();
-		//this prior statement does not return.
+	// BadException Future will call the unexpected handler
+	case State::BAD_EXCEPTION:
+		throw std::bad_exception();
 	
 	// Unresolved Future must block until the scheduler fulfills it.
 	case State::UNRESOLVED:
@@ -591,7 +587,7 @@ void Future<void, ErrorType>::await() throw(ErrorType) {
  *  to process.
  */
 template <typename ErrorType>
-void Future<void, ErrorType>::setResult() throw (FutureAlreadyFulfilled) {
+void Future<void, ErrorType>::setResult() {
 	complete();
 	state = State::SUCCESS;
 }
